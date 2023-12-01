@@ -1,0 +1,20 @@
+.neumorphic-field {
+    -fx-background-color: #d9e1ec;
+    -fx-border-color: #c5ced6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+}
+
+.neumorphic-button {
+    -fx-background-color: #d9e1ec;
+    -fx-border-color: #c5ced6;
+    -fx-border-width: 1px;
+    -fx-border-radius: 5px;
+    -fx-padding: 5px;
+    -fx-cursor: hand;
+}
+
+.neumorphic-button:hover {
+    -fx-background-color: #cad4e0;
+}
