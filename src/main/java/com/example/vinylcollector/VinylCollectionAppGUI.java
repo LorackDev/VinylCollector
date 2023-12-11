@@ -22,10 +22,18 @@ public class VinylCollectionAppGUI extends Application {
     private TableView<VinylFX> tableView;
     private ImageView albumCover;
 
+    /**
+     * starts start() function
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     *
+     * @param primaryStage
+     */
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Vinyl Collection App");
