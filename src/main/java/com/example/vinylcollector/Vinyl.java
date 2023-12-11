@@ -8,7 +8,6 @@ public class Vinyl {
     private int year;
     private Image albumCover;
 
-    private int test;
 
     public Vinyl(String title, String artist, int year) {
         this.title = title;
