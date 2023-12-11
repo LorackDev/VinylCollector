@@ -18,8 +18,8 @@ import java.io.File;
 
 public class VinylCollectionAppGUI extends Application {
 
-    private ObservableList<VinylFX> vinyls = FXCollections.observableArrayList();
-    private TableView<VinylFX> tableView;
+    private ObservableList<Vinyl> vinyls = FXCollections.observableArrayList();
+    private TableView<Vinyl> tableView;
     private ImageView albumCover;
 
     /**
@@ -51,15 +51,15 @@ public class VinylCollectionAppGUI extends Application {
         primaryStage.show();
     }
 
-    private TableView<VinylFX> createTableView() {
-        TableView<VinylFX> tableView = new TableView<>();
-        TableColumn<VinylFX, String> titleCol = new TableColumn<>("Title");
+    private TableView<Vinyl> createTableView() {
+        TableView<Vinyl> tableView = new TableView<>();
+        TableColumn<Vinyl, String> titleCol = new TableColumn<>("Title");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-        TableColumn<VinylFX, String> artistCol = new TableColumn<>("Artist");
+        TableColumn<Vinyl, String> artistCol = new TableColumn<>("Artist");
         artistCol.setCellValueFactory(new PropertyValueFactory<>("artist"));
 
-        TableColumn<VinylFX, Number> yearCol = new TableColumn<>("Year");
+        TableColumn<Vinyl, Number> yearCol = new TableColumn<>("Year");
         yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
 
         tableView.getColumns().addAll(titleCol, artistCol, yearCol);
@@ -123,7 +123,7 @@ public class VinylCollectionAppGUI extends Application {
             String artist = artistTextField.getText();
             int year = Integer.parseInt(yearTextField.getText());
 
-            VinylFX vinyl = new VinylFX(title, artist, year);
+            Vinyl vinyl = new Vinyl(title, artist, year);
             vinyl.setAlbumCover(albumCover.getImage()); // Set the album cover for the vinyl
             vinyls.add(vinyl);
 
