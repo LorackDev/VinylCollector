@@ -5,8 +5,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * @author Lorenz
  * Includes test cases for VinylDataValidator class
+ * @author Lorenz
  */
 public class VinylDataValidatorTest {
 
