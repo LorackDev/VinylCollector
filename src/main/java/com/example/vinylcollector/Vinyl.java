@@ -6,13 +6,17 @@ public class Vinyl {
     private String title;
     private String artist;
     private int year;
+    private String genre;
+    private String spotifyLink;
     private Image albumCover;
 
 
-    public Vinyl(String title, String artist, int year) {
+    public Vinyl(String title, String artist, int year, String genre, String spotifyLink, String imagePath) {
         this.title = title;
         this.artist = artist;
         this.year = year;
+        this.genre = genre;
+        this.spotifyLink = spotifyLink;
     }
 
     public String getTitle() {
