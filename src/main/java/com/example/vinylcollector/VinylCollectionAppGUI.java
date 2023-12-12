@@ -42,15 +42,21 @@ public class VinylCollectionAppGUI extends Application {
         albumCover = createAlbumCover();
 
         GridPane grid = createGrid();
+        MenuBar menuBar = createMenuBar();
+        BorderPane borderPane = new BorderPane();
+
+        borderPane.setTop(menuBar);
+        borderPane.setCenter(grid);
         createForm(grid);
 
-        Scene scene = new Scene(grid, 800, 600);
+        Scene scene = new Scene(borderPane, 800, 600);
+        //Scene scene = new Scene(grid, 800, 600);
         scene.getStylesheets().add("file:" + getClass().getResource("/com/example/vinylcollector/neumorphic.css").getPath());
         primaryStage.setScene(scene);
-
         primaryStage.show();
     }
 
+    // Tabelle
     private TableView<Vinyl> createTableView() {
         TableView<Vinyl> tableView = new TableView<>();
         TableColumn<Vinyl, String> titleCol = new TableColumn<>("Title");
@@ -62,7 +68,13 @@ public class VinylCollectionAppGUI extends Application {
         TableColumn<Vinyl, Number> yearCol = new TableColumn<>("Year");
         yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
 
-        tableView.getColumns().addAll(titleCol, artistCol, yearCol);
+        TableColumn<Vinyl, Number> genreCol = new TableColumn<>("Genre");
+        yearCol.setCellValueFactory(new PropertyValueFactory<>("Genre"));
+
+        TableColumn<Vinyl, Number> spotifyLinkCol = new TableColumn<>("Spotify Link");
+        yearCol.setCellValueFactory(new PropertyValueFactory<>("spotifyLink"));
+
+        tableView.getColumns().addAll(titleCol, artistCol, yearCol, genreCol, spotifyLinkCol);
         tableView.setItems(vinyls);
 
         return tableView;
@@ -83,28 +95,30 @@ public class VinylCollectionAppGUI extends Application {
         grid.setVgap(10);
         grid.setPadding(new javafx.geometry.Insets(25, 25, 25, 25));
         grid.setBackground(new Background(new BackgroundFill(Color.web("#e0e5ec"), CornerRadii.EMPTY, Insets.EMPTY)));
-
         return grid;
     }
 
     private void createForm(GridPane grid) {
-        Label titleLabel = new Label("Title:");
-        TextField titleTextField = new TextField();
+
+        TextField titleTextField = new TextField("Title");
         titleTextField.getStyleClass().add("neumorphic-field");
-        grid.add(titleLabel, 0, 0);
         grid.add(titleTextField, 1, 0);
 
-        Label artistLabel = new Label("Artist:");
-        TextField artistTextField = new TextField();
+        TextField artistTextField = new TextField("Artist");
         artistTextField.getStyleClass().add("neumorphic-field");
-        grid.add(artistLabel, 0, 1);
         grid.add(artistTextField, 1, 1);
 
-        Label yearLabel = new Label("Year:");
-        TextField yearTextField = new TextField();
+        TextField yearTextField = new TextField("Year");
         yearTextField.getStyleClass().add("neumorphic-field");
-        grid.add(yearLabel, 0, 2);
         grid.add(yearTextField, 1, 2);
+
+        TextField genreTextField = new TextField("Genre");
+        genreTextField.getStyleClass().add("neumorphic-field");
+        grid.add(genreTextField, 2, 0);
+
+        TextField spotifyLinkTextField = new TextField("Spotify Link");
+        spotifyLinkTextField.getStyleClass().add("neumorphic-field");
+        grid.add(spotifyLinkTextField, 2, 1);
 
         Button addCoverButton = new Button("Add Album Cover");
         addCoverButton.getStyleClass().add("neumorphic-button");
@@ -121,9 +135,12 @@ public class VinylCollectionAppGUI extends Application {
         addButton.setOnAction(event -> {
             String title = titleTextField.getText();
             String artist = artistTextField.getText();
+            String genre = artistTextField.getText();
+            String spotifyLink = artistTextField.getText();
+            String imagePath = artistTextField.getText();
             int year = Integer.parseInt(yearTextField.getText());
 
-            Vinyl vinyl = new Vinyl(title, artist, year);
+            Vinyl vinyl = new Vinyl(title, artist, year, genre, spotifyLink, imagePath);
             vinyl.setAlbumCover(albumCover.getImage()); // Set the album cover for the vinyl
             vinyls.add(vinyl);
 
@@ -133,6 +150,29 @@ public class VinylCollectionAppGUI extends Application {
             albumCover.setImage(null); // Clear the album cover after adding the vinyl
         });
     }
+
+    private MenuBar createMenuBar() {
+        MenuBar menuBar = new MenuBar();
+
+        // File menu
+        Menu myListMenu = new Menu("Meine Liste");
+        Menu statsMenu = new Menu("Statistiken");
+
+        myListMenu.setOnAction(event -> {
+            System.out.println("My List selected");
+        });
+
+        statsMenu.setOnAction(event -> {
+            System.out.println("Stats selected");
+        });
+
+        // Add "File" menu to the menu bar
+        menuBar.getMenus().add(myListMenu);
+        menuBar.getMenus().add(statsMenu);
+
+        return menuBar;
+    }
+
 
     private void addAlbumCover() {
         FileChooser fileChooser = new FileChooser();

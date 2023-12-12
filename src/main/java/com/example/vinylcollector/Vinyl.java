@@ -8,6 +8,7 @@ public class Vinyl {
     private int year;
     private String genre;
     private String spotifyLink;
+    private String imagePath;
     private Image albumCover;
 
 
