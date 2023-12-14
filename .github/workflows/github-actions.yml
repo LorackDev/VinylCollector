@@ -1,9 +1,0 @@
-name: GitHub Actions
-on: [push]
-jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-        - name: Maven Dependency Tree Dependency Submission
-          uses: advanced-security/maven-dependency-submission-action@v3.0.3
-            
