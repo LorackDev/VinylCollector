@@ -21,6 +21,7 @@ public class VinylCollectionAppGUI extends Application {
     private ObservableList<Vinyl> vinyls = FXCollections.observableArrayList();
     private TableView<Vinyl> tableView;
     private ImageView albumCover;
+    private VinylDataExchange exchange;
 
     /**
      * starts start() function
@@ -55,6 +56,7 @@ public class VinylCollectionAppGUI extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 
     // Tabelle
     private TableView<Vinyl> createTableView() {

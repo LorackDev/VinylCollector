@@ -11,7 +11,6 @@ public class Vinyl {
     private String imagePath;
     private Image albumCover;
 
-
     public Vinyl(String title, String artist, int year, String genre, String spotifyLink, String imagePath) {
         this.title = title;
         this.artist = artist;
