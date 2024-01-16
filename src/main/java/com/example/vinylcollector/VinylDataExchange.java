@@ -1,7 +1,6 @@
 package com.example.vinylcollector;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Objects;
 
 /**
  * @author Lorenz
@@ -72,8 +71,6 @@ public class VinylDataExchange {
         }
     }
 
-
-
     private static void updateInDatabase(String[] values, String id) {
         try {
             Connection connection = DriverManager.getConnection(jdbcUrl);
@@ -121,7 +118,9 @@ public class VinylDataExchange {
         }
     }
 
-
+    public static void deleteFromDatabase(String vinylID) {
+        // Bla Bla Lorenz mach mal, brauche das noch
+    }
 
     public static String[] getRowById(String id) {
         String[] values = null;
@@ -209,7 +208,5 @@ public class VinylDataExchange {
 
         return false;
     }
-
-
 
 }
