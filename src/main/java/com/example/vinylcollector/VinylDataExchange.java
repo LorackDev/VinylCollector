@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * @author Lorenz
- * Includes functions that let you load data from the database.
+ * Includes functions that let you load, edit and delete data from the database.
  */
 public class VinylDataExchange {
 
@@ -35,22 +35,22 @@ public class VinylDataExchange {
 
             columnNamesList.remove(0);
 
-            // Baue das SQL-Statement mit Platzhaltern auf
+
             StringBuilder sqlBuilder = new StringBuilder("INSERT INTO Vinyl (");
             for (String columnName : columnNamesList) {
                 sqlBuilder.append(columnName).append(", ");
             }
-            sqlBuilder.setLength(sqlBuilder.length() - 2); // Entferne das letzte ", "
+            sqlBuilder.setLength(sqlBuilder.length() - 2);
             sqlBuilder.append(") VALUES (");
             for (int i = 0; i < values.length; i++) {
                 sqlBuilder.append("?, ");
             }
-            sqlBuilder.setLength(sqlBuilder.length() - 2); // Entferne das letzte ", "
+            sqlBuilder.setLength(sqlBuilder.length() - 2);
             sqlBuilder.append(")");
 
-            // Führe das vorbereitete SQL-Statement aus
+
             try (PreparedStatement preparedStatement = connection.prepareStatement(sqlBuilder.toString())) {
-                // Setze die Parameter basierend auf dem Datentyp der Spalten
+
                 int parameterIndex = 1;
                 for (String columnName : columnNamesList) {
                     if (!columnName.equals("2022")) {
@@ -85,17 +85,14 @@ public class VinylDataExchange {
 
             columnNamesList.remove(0);
 
-            // Baue das SQL-Statement mit Platzhaltern für das Update auf
             StringBuilder updateSql = new StringBuilder("UPDATE Vinyl SET ");
             for (String columnName : columnNamesList) {
                 updateSql.append(columnName).append(" = ?, ");
             }
-            updateSql.setLength(updateSql.length() - 2); // Entferne das letzte ", "
+            updateSql.setLength(updateSql.length() - 2);
             updateSql.append(" WHERE Id = ?");
 
-            // Führe das vorbereitete SQL-Statement aus
             try (PreparedStatement preparedStatement = connection.prepareStatement(updateSql.toString())) {
-                // Setze die Parameter basierend auf dem Datentyp der Spalten
                 int parameterIndex = 1;
                 for (String columnName : columnNamesList) {
                     if (!columnName.equals("2022")) {
@@ -105,7 +102,7 @@ public class VinylDataExchange {
                     }
                     parameterIndex++;
                 }
-                // Setze den Parameter für die WHERE-Klausel (Id)
+
                 preparedStatement.setString(parameterIndex, id);
 
                 preparedStatement.executeUpdate();
@@ -118,9 +115,26 @@ public class VinylDataExchange {
         }
     }
 
-    public static void deleteFromDatabase(String vinylID) {
-        // Bla Bla Lorenz mach mal, brauche das noch
+    public static void deleteFromDatabase(String id) {
+        try {
+            Connection connection = DriverManager.getConnection(jdbcUrl);
+
+            String deleteSql = "DELETE FROM Vinyl WHERE Id = ?";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(deleteSql)) {
+
+                preparedStatement.setString(1, id);
+
+                preparedStatement.executeUpdate();
+            }
+
+            connection.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public static String[] getRowById(String id) {
         String[] values = null;
@@ -183,7 +197,7 @@ public class VinylDataExchange {
         return vinylArray;
     }
 
-    public static boolean idExists(String idToCheck) {
+    private static boolean idExists(String idToCheck) {
         try {
 
             Connection connection = DriverManager.getConnection(jdbcUrl);

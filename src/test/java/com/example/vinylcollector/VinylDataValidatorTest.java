@@ -17,7 +17,7 @@ public class VinylDataValidatorTest {
      * Test case for checkGenre method
      */
     @Test
-    public void testCheckGenre() throws InvalidInputException{
+    public void testCheckGenre() throws InvalidInputException {
         // Test valid input
         String genre1 = "Rock";
         assertTrue(VinylDataValidator.checkGenre(genre1));
@@ -26,6 +26,7 @@ public class VinylDataValidatorTest {
         String genre2 = "Pop2";
         assertThrows(InvalidInputException.class, () -> VinylDataValidator.checkGenre(genre2));
     }
+
     @Test
     public void testDatabaseConnection() {
         String jdbcUrl = "jdbc:sqlite:C:\\Users\\lobin\\IdeaProjects\\VinylCollector\\src\\main\\resources\\VinylCollectorDB.db";
@@ -71,16 +72,6 @@ public class VinylDataValidatorTest {
         }
     }
 
-
-    @Test
-    public void testIdExists() {
-        String validId = "1";
-        String invalidId = "99999";
-
-        assertTrue(VinylDataExchange.idExists(validId), "ID 1 sollte existieren");
-        assertFalse(VinylDataExchange.idExists(invalidId), "ID 99999 sollte nicht existieren");
-    }
-
     @Test
     public void testAddToDatabase() {
 
@@ -101,7 +92,7 @@ public class VinylDataValidatorTest {
 
     @Test
     public void testGetRowByID() {
-    System.out.println(Arrays.toString(VinylDataExchange.getRowById("1")));
+        System.out.println(Arrays.toString(VinylDataExchange.getRowById("1")));
     }
 
     @Test
@@ -114,4 +105,5 @@ public class VinylDataValidatorTest {
         VinylDataExchange.writeIntoDataBase(updatedValues, "1");
 
     }
+
 }
