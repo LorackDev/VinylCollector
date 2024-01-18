@@ -200,7 +200,7 @@ public class VinylCollectionAppGUI extends Application {
         GridPane.setHalignment(addToCollectionButton, HPos.CENTER);
         addToCollectionButton.setOnAction(event -> openAddVinylWindow());
 
-        // Neue Knöpfe für Bearbeiten und Löschen
+                // Neue Knöpfe für Bearbeiten und Löschen
         editButton = new Button("Bearbeiten");
         editButton.getStyleClass().add("neumorphic-button");
         grid.add(editButton, 1, 5);
@@ -214,6 +214,16 @@ public class VinylCollectionAppGUI extends Application {
         GridPane.setHalignment(deleteButton, HPos.CENTER);
         deleteButton.setOnAction(event -> handleDeleteButton());
         deleteButton.setDisable(true);
+
+        TextField searchTextField = new TextField();
+        searchTextField.getStyleClass().add("neumorphic-field");
+        grid.add(searchTextField, 0, 6, 2, 1);
+
+        // Listener für die Suchleiste
+        searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
+            // Filtere die Tabelle basierend auf dem eingegebenen Suchbegriff
+            filterTable(newValue);
+        });
 
         //addCoverButton.setOnAction(event -> addAlbumCover());
 
@@ -428,6 +438,21 @@ public class VinylCollectionAppGUI extends Application {
     private void enableEditAndDeleteButtons(boolean enable) {
         editButton.setDisable(!enable);
         deleteButton.setDisable(!enable);
+    }
+
+    private void filterTable(String searchTerm) {
+        ObservableList<Vinyl> filteredList = FXCollections.observableArrayList();
+
+        for (Vinyl vinyl : vinyls) {
+            if (vinyl.getTitle().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                    vinyl.getArtist().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                    vinyl.getYear().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                    vinyl.getGenre().toLowerCase().contains(searchTerm.toLowerCase()) ||
+                    vinyl.getSpotifyLink().toLowerCase().contains(searchTerm.toLowerCase())) {
+                filteredList.add(vinyl);
+            }
+        }
+        tableView.setItems(filteredList);
     }
 
 }
