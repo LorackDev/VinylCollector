@@ -21,7 +21,6 @@ import java.io.File;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public class VinylCollectionAppGUI extends Application {
 
@@ -49,6 +48,7 @@ public class VinylCollectionAppGUI extends Application {
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Vinyl Collection App");
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
 
         tableView = createTableView();
         albumCover = createAlbumCover();
@@ -291,6 +291,8 @@ public class VinylCollectionAppGUI extends Application {
         Stage addVinylStage = new Stage();
         addVinylStage.setTitle("Add Vinyl to Collection");
         addVinylStage.initModality(Modality.APPLICATION_MODAL);
+        addVinylStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
+
 
         GridPane addVinylGrid = new GridPane();
         addVinylGrid.setAlignment(Pos.CENTER);
