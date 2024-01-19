@@ -77,6 +77,7 @@ public class VinylCollectionAppGUI extends Application {
         scene.getStylesheets().add("file:" + Objects.requireNonNull(getClass().getResource("/com/example/vinylcollector/neumorphic.css")).getPath());
         primaryStage.setScene(scene);
         primaryStage.show();
+        grid.requestFocus();
     }
 
     // Methode zum Befüllen der vinyls-Liste
@@ -166,28 +167,38 @@ public class VinylCollectionAppGUI extends Application {
 
     private void createForm(GridPane grid) {
 
-        titleTextField = new TextField("Title");
+        titleTextField = new TextField();
+        titleTextField.setPromptText("Titel");
         titleTextField.getStyleClass().add("neumorphic-field");
+        titleTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         titleTextField.setEditable(false);
         grid.add(titleTextField, 0, 0, 2, 1);
 
-        artistTextField = new TextField("Artist");
+        artistTextField = new TextField();
+        artistTextField.setPromptText("Artist");
         artistTextField.getStyleClass().add("neumorphic-field");
+        artistTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         artistTextField.setEditable(false);
         grid.add(artistTextField, 0, 1, 2, 1);
 
-        yearTextField = new TextField("Year");
+        yearTextField = new TextField();
+        yearTextField.setPromptText("Year");
         yearTextField.getStyleClass().add("neumorphic-field");
+        yearTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         yearTextField.setEditable(false);
         grid.add(yearTextField, 0, 2, 2, 1);
 
-        genreTextField = new TextField("Genre");
+        genreTextField = new TextField();
+        genreTextField.setPromptText("Genre");
         genreTextField.getStyleClass().add("neumorphic-field");
+        genreTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         genreTextField.setEditable(false);
         grid.add(genreTextField, 2, 0, 2, 1);
 
-        spotifyLinkTextField = new TextField("Spotify Link");
+        spotifyLinkTextField = new TextField();
+        spotifyLinkTextField.setPromptText("Spotify Link");
         spotifyLinkTextField.getStyleClass().add("neumorphic-field");
+        spotifyLinkTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         spotifyLinkTextField.setEditable(false);
         grid.add(spotifyLinkTextField, 2, 1, 2, 1);
 
@@ -219,7 +230,8 @@ public class VinylCollectionAppGUI extends Application {
         deleteButton.setDisable(true);
 
         //Suchleiste
-        TextField searchTextField = new TextField("Suche");
+        TextField searchTextField = new TextField();
+        searchTextField.setPromptText("Suche");
         searchTextField.getStyleClass().add("neumorphic-field");
         grid.add(searchTextField, 0, 6, 2, 1);
         searchTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
@@ -246,7 +258,6 @@ public class VinylCollectionAppGUI extends Application {
         //addCoverButton.setOnAction(event -> addAlbumCover());
 
         grid.add(tableView, 0, 7, 4, 2);
-
     }
 
     private MenuBar createMenuBar() {
@@ -292,7 +303,6 @@ public class VinylCollectionAppGUI extends Application {
         addVinylStage.setTitle("Add Vinyl to Collection");
         addVinylStage.initModality(Modality.APPLICATION_MODAL);
         addVinylStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
-
 
         GridPane addVinylGrid = new GridPane();
         addVinylGrid.setAlignment(Pos.CENTER);
@@ -403,9 +413,13 @@ public class VinylCollectionAppGUI extends Application {
         if (selectedVinyl != null) {
             // Frage den Benutzer nach Bestätigung, bevor du das Vinyl löschst
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-            confirmation.setTitle("Bestätigung");
+
+            confirmation.setTitle("Löschen");
             confirmation.setHeaderText(null);
             confirmation.setContentText("Möchten Sie dieses Vinyl wirklich löschen?");
+
+            Stage deleteVinyl = (Stage) confirmation.getDialogPane().getScene().getWindow();
+            deleteVinyl.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
 
             Optional<ButtonType> result = confirmation.showAndWait();
             if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -443,14 +457,28 @@ public class VinylCollectionAppGUI extends Application {
         });
     }
     private void setupTableDeselectionListener(GridPane grid) {
-        grid.setOnMouseClicked(event -> {
-            // Deselect the table row when clicking outside the table
-            tableView.getSelectionModel().clearSelection();
-
-            // Disable edit and delete buttons when there is no selection
-            editButton.setDisable(true);
-            deleteButton.setDisable(true);
+        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue == null) {
+                tableView.getSelectionModel().clearSelection();
+                clearTextFields();
+                enableEditAndDeleteButtons(false);
+            }
         });
+
+        grid.setOnMouseClicked(event -> {
+            tableView.getSelectionModel().clearSelection();
+            clearTextFields();
+            enableEditAndDeleteButtons(false);
+        });
+    }
+
+    private void clearTextFields() {
+        titleTextField.clear();
+        artistTextField.clear();
+        yearTextField.clear();
+        genreTextField.clear();
+        spotifyLinkTextField.clear();
+        albumCover.setImage(null);
     }
 
     private void enableEditAndDeleteButtons(boolean enable) {
