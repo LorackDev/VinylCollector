@@ -20,6 +20,8 @@ import javafx.stage.Stage;
 import java.io.File;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class VinylCollectionAppGUI extends Application {
 
@@ -194,13 +196,14 @@ public class VinylCollectionAppGUI extends Application {
         //grid.add(addCoverButton, 0, 0);
         //grid.add(albumCover, 0, 2);
 
+        //Hinzufügen
         Button addToCollectionButton = new Button("Add to Collection");
         addToCollectionButton.getStyleClass().add("neumorphic-button");
         grid.add(addToCollectionButton, 0, 5);
         GridPane.setHalignment(addToCollectionButton, HPos.CENTER);
         addToCollectionButton.setOnAction(event -> openAddVinylWindow());
 
-                // Neue Knöpfe für Bearbeiten und Löschen
+        // Neue Knöpfe für Bearbeiten und Löschen
         editButton = new Button("Bearbeiten");
         editButton.getStyleClass().add("neumorphic-button");
         grid.add(editButton, 1, 5);
@@ -215,15 +218,30 @@ public class VinylCollectionAppGUI extends Application {
         deleteButton.setOnAction(event -> handleDeleteButton());
         deleteButton.setDisable(true);
 
-        TextField searchTextField = new TextField();
+        //Suchleiste
+        TextField searchTextField = new TextField("Suche");
         searchTextField.getStyleClass().add("neumorphic-field");
         grid.add(searchTextField, 0, 6, 2, 1);
+        searchTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
 
-        // Listener für die Suchleiste
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            // Filtere die Tabelle basierend auf dem eingegebenen Suchbegriff
             filterTable(newValue);
         });
+
+        //Dropdown Menü
+        ComboBox<String> genreComboBox = new ComboBox<>();
+        genreComboBox.getStyleClass().add("neumorphic-field");
+        genreComboBox.setPromptText("Filtern nach Genre");
+        grid.add(genreComboBox, 2, 6);
+
+        // Listener für das Dropdown-Menü
+        genreComboBox.setOnAction(event -> {
+            String selectedGenre = genreComboBox.getValue();
+            filterTableByGenre(selectedGenre);
+        });
+
+        // Fülle das Dropdown-Menü mit den Genres aus der Datenbank
+        fillGenreComboBoxFromDatabase(genreComboBox);
 
         //addCoverButton.setOnAction(event -> addAlbumCover());
 
@@ -270,12 +288,10 @@ public class VinylCollectionAppGUI extends Application {
     }
 
     private void openAddVinylWindow() {
-        // Neues Fenster erstellen
         Stage addVinylStage = new Stage();
         addVinylStage.setTitle("Add Vinyl to Collection");
         addVinylStage.initModality(Modality.APPLICATION_MODAL);
 
-        // Neues GridPane für das Formular im neuen Fenster
         GridPane addVinylGrid = new GridPane();
         addVinylGrid.setAlignment(Pos.CENTER);
         addVinylGrid.setHgap(10);
@@ -455,4 +471,20 @@ public class VinylCollectionAppGUI extends Application {
         tableView.setItems(filteredList);
     }
 
+    private void fillGenreComboBoxFromDatabase(ComboBox<String> genreComboBox) {
+        Set<String> uniqueGenres = VinylDataExchange.getGenresFromDatabase();
+
+        genreComboBox.getItems().clear();
+        genreComboBox.getItems().addAll(uniqueGenres);
+    }
+
+    private void filterTableByGenre(String selectedGenre) {
+        if (selectedGenre == null || selectedGenre.isEmpty()) {
+            tableView.setItems(vinyls);
+            return;
+        }
+
+        ObservableList<Vinyl> filteredList = vinyls.filtered(vinyl -> selectedGenre.equalsIgnoreCase(vinyl.getGenre()));
+        tableView.setItems(filteredList);
+    }
 }

@@ -1,6 +1,8 @@
 package com.example.vinylcollector;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Lorenz
@@ -195,6 +197,28 @@ public class VinylDataExchange {
         }
 
         return vinylArray;
+    }
+
+    public static Set<String> getGenresFromDatabase() {
+        Set<String> genres = new HashSet<>();
+
+        try (Connection connection = DriverManager.getConnection(jdbcUrl)) {
+            String query = "SELECT DISTINCT genre FROM Vinyl";
+
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query);
+                 ResultSet resultSet = preparedStatement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    String genre = resultSet.getString("genre");
+                    genres.add(genre);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return genres;
     }
 
     private static boolean idExists(String idToCheck) {
