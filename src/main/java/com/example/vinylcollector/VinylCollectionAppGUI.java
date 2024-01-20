@@ -34,6 +34,9 @@ public class VinylCollectionAppGUI extends Application {
     private TextField spotifyLinkTextField;
     private Button editButton;
     private Button deleteButton;
+    private String searchFilter = "";
+    private String genreFilter = "";
+
 
     /**
      * starts start() function
@@ -237,7 +240,8 @@ public class VinylCollectionAppGUI extends Application {
         searchTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
 
         searchTextField.textProperty().addListener((observable, oldValue, newValue) -> {
-            filterTable(newValue);
+            searchFilter = newValue;
+            filterTable();
         });
 
         //Dropdown Menü
@@ -248,9 +252,10 @@ public class VinylCollectionAppGUI extends Application {
 
         // Listener für das Dropdown-Menü
         genreComboBox.setOnAction(event -> {
-            String selectedGenre = genreComboBox.getValue();
-            filterTableByGenre(selectedGenre);
+            genreFilter = genreComboBox.getValue();
+            filterTable();
         });
+
 
         // Fülle das Dropdown-Menü mit den Genres aus der Datenbank
         fillGenreComboBoxFromDatabase(genreComboBox);
@@ -570,15 +575,19 @@ public class VinylCollectionAppGUI extends Application {
         deleteButton.setDisable(!enable);
     }
 
-    private void filterTable(String searchTerm) {
+    private void filterTable() {
         ObservableList<Vinyl> filteredList = FXCollections.observableArrayList();
 
         for (Vinyl vinyl : vinyls) {
-            if (vinyl.getTitle().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    vinyl.getArtist().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    vinyl.getYear().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    vinyl.getGenre().toLowerCase().contains(searchTerm.toLowerCase()) ||
-                    vinyl.getSpotifyLink().toLowerCase().contains(searchTerm.toLowerCase())) {
+            boolean matchesSearchTerm = vinyl.getTitle().toLowerCase().contains(searchFilter.toLowerCase()) ||
+                    vinyl.getArtist().toLowerCase().contains(searchFilter.toLowerCase()) ||
+                    vinyl.getYear().toLowerCase().contains(searchFilter.toLowerCase()) ||
+                    vinyl.getGenre().toLowerCase().contains(searchFilter.toLowerCase()) ||
+                    vinyl.getSpotifyLink().toLowerCase().contains(searchFilter.toLowerCase());
+
+            boolean matchesGenre = genreFilter.isEmpty() || genreFilter.equalsIgnoreCase(vinyl.getGenre());
+
+            if (matchesSearchTerm && matchesGenre) {
                 filteredList.add(vinyl);
             }
         }
@@ -590,15 +599,5 @@ public class VinylCollectionAppGUI extends Application {
 
         genreComboBox.getItems().clear();
         genreComboBox.getItems().addAll(uniqueGenres);
-    }
-
-    private void filterTableByGenre(String selectedGenre) {
-        if (selectedGenre == null || selectedGenre.isEmpty()) {
-            tableView.setItems(vinyls);
-            return;
-        }
-
-        ObservableList<Vinyl> filteredList = vinyls.filtered(vinyl -> selectedGenre.equalsIgnoreCase(vinyl.getGenre()));
-        tableView.setItems(filteredList);
     }
 }
