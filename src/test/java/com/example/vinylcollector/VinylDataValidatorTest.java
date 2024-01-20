@@ -102,7 +102,7 @@ public class VinylDataValidatorTest {
         String[] updatedValues = {"UpdatedTitle", "UpdatedArtist", "2023", "UpdatedGenre", "UpdatedLink", "/path/to/updated/image.jpg"};
 
         // Test durchführen
-        VinylDataExchange.writeIntoDataBase(updatedValues, "1");
+        VinylDataExchange.writeIntoDataBase(updatedValues, "19");
 
     }
 

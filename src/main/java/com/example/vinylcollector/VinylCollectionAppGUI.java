@@ -469,11 +469,11 @@ public class VinylCollectionAppGUI extends Application {
                 String editedYear = editYearTextField.getText();
                 String editedGenre = editGenreTextField.getText();
                 String editedSpotifyLink = editSpotifyLinkTextField.getText();
+                String placeholder = "";
 
-                ////////////////////////////
-                String[] editedValues = {editedTitle, editedArtist, editedYear, editedGenre, editedSpotifyLink};
-                // VinylDataExchange.updateInDatabase(editedValues, selectedVinyl.getID());
-                ///////////////////////////////
+                String[] editedValues = {editedTitle, editedArtist, editedYear, editedGenre, editedSpotifyLink, placeholder};
+                VinylDataExchange.writeIntoDataBase(editedValues, selectedVinyl.getID());
+
 
                 String[][] data = VinylDataExchange.getFullDataTable();
                 vinyls.clear();
