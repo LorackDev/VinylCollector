@@ -35,7 +35,8 @@ public class VinylCollectionAppGUI extends Application {
     private Button editButton;
     private Button deleteButton;
     private String searchFilter = "";
-    private String genreFilter = "";
+    private String genreFilter = "Alle";
+
 
 
     /**
@@ -585,7 +586,7 @@ public class VinylCollectionAppGUI extends Application {
                     vinyl.getGenre().toLowerCase().contains(searchFilter.toLowerCase()) ||
                     vinyl.getSpotifyLink().toLowerCase().contains(searchFilter.toLowerCase());
 
-            boolean matchesGenre = genreFilter.isEmpty() || genreFilter.equalsIgnoreCase(vinyl.getGenre());
+            boolean matchesGenre = "Alle".equalsIgnoreCase(genreFilter) || genreFilter.equalsIgnoreCase(vinyl.getGenre());
 
             if (matchesSearchTerm && matchesGenre) {
                 filteredList.add(vinyl);
@@ -597,7 +598,13 @@ public class VinylCollectionAppGUI extends Application {
     private void fillGenreComboBoxFromDatabase(ComboBox<String> genreComboBox) {
         Set<String> uniqueGenres = VinylDataExchange.getGenresFromDatabase();
 
+        // Füge "Alle" als erste Option hinzu
+        ObservableList<String> genreList = FXCollections.observableArrayList("Alle");
+        genreList.addAll(uniqueGenres);
+
         genreComboBox.getItems().clear();
-        genreComboBox.getItems().addAll(uniqueGenres);
+        genreComboBox.getItems().addAll(genreList);
     }
+
+
 }
