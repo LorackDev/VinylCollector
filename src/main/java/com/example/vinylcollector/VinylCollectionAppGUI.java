@@ -410,16 +410,18 @@ public class VinylCollectionAppGUI extends Application {
         addVinylStage.requestFocus();
     }
 
-
-
     private void showSuccessDialog() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Erfolg");
         alert.setHeaderText(null);
         alert.setContentText("Vinyl erfolgreich in die Datenbank eingetragen!");
 
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
+
         alert.showAndWait();
     }
+
 
     private void handleEditButton() {
         Vinyl selectedVinyl = tableView.getSelectionModel().getSelectedItem();
@@ -521,15 +523,23 @@ public class VinylCollectionAppGUI extends Application {
     }
 
     private void handleDeleteButton() {
-        // Implementiere die Logik für das Löschen hier
         Vinyl selectedVinyl = tableView.getSelectionModel().getSelectedItem();
         if (selectedVinyl != null) {
             // Frage den Benutzer nach Bestätigung, bevor du das Vinyl löschst
             Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
-
             confirmation.setTitle("Löschen");
             confirmation.setHeaderText(null);
             confirmation.setContentText("Möchten Sie dieses Vinyl wirklich löschen?");
+
+            // Zugriff auf den Cancel-Button
+            ButtonType cancelButtonType = confirmation.getButtonTypes().stream()
+                    .filter(buttonType -> buttonType.getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE)
+                    .findFirst().orElse(null);
+
+            if (cancelButtonType != null) {
+                Button cancelButton = (Button) confirmation.getDialogPane().lookupButton(cancelButtonType);
+                cancelButton.setText("Abbrechen"); // Ändern Sie "Cancel" auf den gewünschten Text
+            }
 
             Stage deleteVinyl = (Stage) confirmation.getDialogPane().getScene().getWindow();
             deleteVinyl.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
@@ -547,7 +557,8 @@ public class VinylCollectionAppGUI extends Application {
         }
     }
 
-        private void setupTableSelectionListener() {
+
+    private void setupTableSelectionListener() {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Setze die Werte der ausgewählten Vinyl in die Textfelder
@@ -622,7 +633,6 @@ public class VinylCollectionAppGUI extends Application {
     private void fillGenreComboBoxFromDatabase(ComboBox<String> genreComboBox) {
         Set<String> uniqueGenres = VinylDataExchange.getGenresFromDatabase();
 
-        // Füge "Alle" als erste Option hinzu
         ObservableList<String> genreList = FXCollections.observableArrayList("Alle");
         genreList.addAll(uniqueGenres);
 
