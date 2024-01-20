@@ -2,8 +2,9 @@ Inhalt\
 1. Aufgabenverteilung
 2. Screenshot App
 3. Nutzerdokumentation
-4. Mockup\
-und ein Easter-Egg
+4. Mockup
+
++ und ein Easter-Egg
 
 
 1. Aufgabenverteilung:\
