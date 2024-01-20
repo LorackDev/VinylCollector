@@ -3,7 +3,7 @@ Inhalt\
 2. Screenshot App
 3. Nutzerdokumentation
 4. Mockup
-5. Finden sie es selbst heraus
++ ein Easter-Egg
 
 
 1. Aufgabenverteilung:\
@@ -40,7 +40,6 @@ Bei diesem Icon hat sich Darko sehr sehr viel Mühe gegeben!!!
 4. Mockup:\
 ![Projekt_Mockup](https://github.com/LorackDev/VinylCollector/assets/153488926/501bf28f-6b23-43e8-86e1-c7601ed9da8e)
 
-5. Sie haben es gefunden\
 GaLiGrü\
 ![WhatsApp Image 2024-01-20 at 16 40 53_49e0fdb0](https://github.com/LorackDev/VinylCollector/assets/149715859/8daafa9e-5dda-451e-ae66-78fb143bb61c)
 
