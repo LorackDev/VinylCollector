@@ -63,10 +63,10 @@ public class VinylCollectionAppGUI extends Application {
         spotifyLinkTextField = new TextField("Spotify Link");
 
         GridPane grid = createGrid();
-        MenuBar menuBar = createMenuBar();
+        //MenuBar menuBar = createMenuBar();
         BorderPane borderPane = new BorderPane();
 
-        borderPane.setTop(menuBar);
+        //borderPane.setTop(menuBar);
         borderPane.setCenter(grid);
         createForm(grid);
 
@@ -639,6 +639,4 @@ public class VinylCollectionAppGUI extends Application {
         genreComboBox.getItems().clear();
         genreComboBox.getItems().addAll(genreList);
     }
-
-
 }
