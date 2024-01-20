@@ -5,6 +5,7 @@ Inhalt\
 4. Mockup
 5. Finden sie es selbst heraus
 
+
 1. Aufgabenverteilung:\
 Darko - Design und Umsetzung von graphischer Besnutzeroberfläche\
 Lorenz - Implementierung der Programmlogik (Datenaustausch zwischen DB und GUI), Verwaltung des Git Repository\
