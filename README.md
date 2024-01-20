@@ -1,8 +1,9 @@
-Inhalt\
+Inhalt
 1. Aufgabenverteilung
-2. Screenshot App
-3. Nutzerdokumentation
-4. Mockup
+2. Wie sie das Programm ausführen können
+3. Screenshot App
+4. Nutzerdokumentation
+5. Mockup
 
 + und ein Easter-Egg
 
@@ -12,13 +13,16 @@ Darko - Design und Umsetzung von graphischer Besnutzeroberfläche\
 Lorenz - Implementierung der Programmlogik (Datenaustausch zwischen DB und GUI), Verwaltung des Git Repository\
 Marcel - Einrichtung der Datenbank (Datenmodellierung und -verwaltung)
 
-2. Screenshot App\
-Falls irgendwas nicht funktioniert, können sie hier wenigstens einen Screenshot der ganzen App sehen:\
+2. Wie sie das Programm ausführen können:\
+Zuerst müssen sie das Git Repository in IntelliJ klonen. Es sollte auch mit Eclipse gehen, aber dann müssen sie wahrscheinlich das Projekt konvertieren. Das Programm startet durch die Klasse Launcher, die sie in dem Pfad VinylCollector\src\main\java\com\example\vinylcollector finden.
+
+3. Screenshot App:\
+Falls irgendwas nicht funktioniert, können sie hier wenigstens einen Screenshot der ganzen App sehen:
 <img width="905" alt="image" src="https://github.com/LorackDev/VinylCollector/assets/149715859/55101acb-deac-4fc3-8275-dc6aebedcfaf">
 
-3. Nutzerdokumentation:\
+4. Nutzerdokumentation:
 <img width="935" alt="image" src="https://github.com/LorackDev/VinylCollector/assets/149715859/28b40bfe-e202-4ebf-a440-cfd4b8748956">
-Die Textboxen im oberen Bereich der Applikation dienen lediglich der besseren Einzeige eines einzelnen ausgewählten Eintrags in de Liste.
+Die Textboxen im oberen Bereich der Applikation dienen lediglich der besseren Einzeige eines einzelnen ausgewählten Eintrags in der Liste.
 
 <img width="126" alt="image" src="https://github.com/LorackDev/VinylCollector/assets/149715859/eb31d108-102a-4921-a3c6-b9ac73a9139f">\
 Zur Sammlung hinzufügen: Öffnet ein Fenster, in dem man einen neuen Eintrag für die Liste eingeben kann. Die Eingabe wird durch den Button "Speichern" bestätigt oder mit "Abbrechen" verworfen.
@@ -38,7 +42,7 @@ In der Tabelle lassen sich einzelne Spalten durch das anklicken des Spaltennamen
 <img width="14" alt="image" src="https://github.com/LorackDev/VinylCollector/assets/149715859/e4c76947-06e9-49e5-a6e7-0f5ec023f502">\
 Bei diesem Icon hat sich Darko sehr sehr viel Mühe gegeben!!!
 
-4. Mockup:\
+5. Mockup:\
 ![Projekt_Mockup](https://github.com/LorackDev/VinylCollector/assets/153488926/501bf28f-6b23-43e8-86e1-c7601ed9da8e)
 
 GaLiGrü\
