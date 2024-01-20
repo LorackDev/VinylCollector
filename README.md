@@ -1,8 +1,8 @@
 Inhalt\
-1. Aufgabenverteilung\
-2. Screenshot App\
-3. Nutzerdokumentation\
-4. Mockup\
+1. Aufgabenverteilung
+2. Screenshot App
+3. Nutzerdokumentation
+4. Mockup
 5. Finden sie es selbst heraus
 
 1. Aufgabenverteilung:\
