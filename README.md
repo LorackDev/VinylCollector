@@ -14,7 +14,7 @@ Lorenz - Implementierung der Programmlogik (Datenaustausch zwischen DB und GUI),
 Marcel - Einrichtung der Datenbank (Datenmodellierung und -verwaltung)
 
 2. Wie sie das Programm ausführen können:\
-Zuerst müssen sie das Git Repository in IntelliJ klonen. Es sollte auch mit Eclipse gehen, aber dann müssen sie wahrscheinlich das Projekt konvertieren. Das Programm startet durch die Klasse Launcher, die sie in dem Pfad VinylCollector\src\main\java\com\example\vinylcollector finden.
+Zuerst müssen sie das Git Repository in IntelliJ klonen. Es sollte auch mit Eclipse gehen, aber dann müssen sie wahrscheinlich das Projekt konvertieren. Das Programm startet durch die Klasse Launcher, die sie in dem Pfad VinylCollector\src\main\java\com\example\vinylcollector finden. Sollte es Probleme bei der Ausführung geben, können sie sich gerne jederzeit bei uns melden.
 
 3. Screenshot App:\
 Falls irgendwas nicht funktioniert, können sie hier wenigstens einen Screenshot der ganzen App sehen:
