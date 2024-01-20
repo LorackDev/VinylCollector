@@ -1,7 +1,7 @@
 Aufgabenverteilung:
-Marcel - Datenbank (Datenbankanbindung, Datenmodellierung- und verwaltung)
-Darko - GUI, Nutzerdokumentation, Product Backlog
-Lorenz - Programmlogik, Verwaltung Git Repository
+Marcel - Datenbank (Datenbankanbindung, Datenmodellierung- und verwaltung)\
+Darko - GUI, Nutzerdokumentation, Product Backlog\
+Lorenz - Programmlogik, Verwaltung Git Repository\
 
 Kommentare auf Englisch
 
