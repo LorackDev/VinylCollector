@@ -399,11 +399,94 @@ public class VinylCollectionAppGUI extends Application {
     }
 
     private void handleEditButton() {
-        // Implementiere die Logik für das Bearbeiten hier
         Vinyl selectedVinyl = tableView.getSelectionModel().getSelectedItem();
+
         if (selectedVinyl != null) {
-            // Öffne ein Bearbeitungsfenster oder fülle das Formular mit den ausgewählten Werten
-            // Je nach Anforderungen deiner Anwendung
+            Stage editVinylStage = new Stage();
+            editVinylStage.setTitle("Edit Vinyl");
+            editVinylStage.initModality(Modality.APPLICATION_MODAL);
+
+            GridPane editVinylGrid = new GridPane();
+            editVinylGrid.setAlignment(Pos.CENTER);
+            editVinylGrid.setHgap(10);
+            editVinylGrid.setVgap(15);
+            editVinylGrid.setPadding(new Insets(25, 25, 25, 25));
+            editVinylGrid.setBackground(new Background(new BackgroundFill(Color.web("#e0e5ec"), CornerRadii.EMPTY, Insets.EMPTY)));
+
+            int numColumnsEdit = 4;
+            int numRowsEdit = 6;
+
+            for (int col = 0; col < numColumnsEdit; col++) {
+                ColumnConstraints column = new ColumnConstraints();
+                column.setPercentWidth(100.0 / numColumnsEdit);
+                editVinylGrid.getColumnConstraints().add(column);
+            }
+
+            for (int row = 0; row < numRowsEdit; row++) {
+                RowConstraints rowConstraints = new RowConstraints();
+                editVinylGrid.getRowConstraints().add(rowConstraints);
+            }
+
+            RowConstraints tableRowConstraints = new RowConstraints();
+            tableRowConstraints.setVgrow(Priority.ALWAYS);
+            editVinylGrid.getRowConstraints().set(4, tableRowConstraints);
+
+            TextField editTitleTextField = new TextField(selectedVinyl.getTitle());
+            editTitleTextField.getStyleClass().add("neumorphic-field");
+            editVinylGrid.add(editTitleTextField, 0, 0, 2, 1);
+
+            TextField editArtistTextField = new TextField(selectedVinyl.getArtist());
+            editArtistTextField.getStyleClass().add("neumorphic-field");
+            editVinylGrid.add(editArtistTextField, 0, 1, 2, 1);
+
+            TextField editYearTextField = new TextField(selectedVinyl.getYear());
+            editYearTextField.getStyleClass().add("neumorphic-field");
+            editVinylGrid.add(editYearTextField, 0, 2, 2, 1);
+
+            TextField editGenreTextField = new TextField(selectedVinyl.getGenre());
+            editGenreTextField.getStyleClass().add("neumorphic-field");
+            editVinylGrid.add(editGenreTextField, 2, 0, 2, 1);
+
+            TextField editSpotifyLinkTextField = new TextField(selectedVinyl.getSpotifyLink());
+            editSpotifyLinkTextField.getStyleClass().add("neumorphic-field");
+            editVinylGrid.add(editSpotifyLinkTextField, 2, 1, 2, 1);
+
+            Button cancelEditButton = new Button("Abbrechen");
+            cancelEditButton.getStyleClass().add("neumorphic-button");
+            editVinylGrid.add(cancelEditButton, 0, 4, 2, 1);
+            GridPane.setHalignment(cancelEditButton, HPos.CENTER);
+            cancelEditButton.setStyle("-fx-background-color: #FFC0CB;");
+            cancelEditButton.setOnAction(event -> editVinylStage.close());
+
+            Button saveEditButton = new Button("Speichern");
+            saveEditButton.getStyleClass().add("neumorphic-button");
+            editVinylGrid.add(saveEditButton, 2, 4, 2, 1);
+            GridPane.setHalignment(saveEditButton, HPos.CENTER);
+            saveEditButton.setStyle("-fx-background-color: #90EE90;");
+            saveEditButton.setOnAction(event -> {
+                String editedTitle = editTitleTextField.getText();
+                String editedArtist = editArtistTextField.getText();
+                String editedYear = editYearTextField.getText();
+                String editedGenre = editGenreTextField.getText();
+                String editedSpotifyLink = editSpotifyLinkTextField.getText();
+
+                ////////////////////////////
+                String[] editedValues = {editedTitle, editedArtist, editedYear, editedGenre, editedSpotifyLink};
+                // VinylDataExchange.updateInDatabase(editedValues, selectedVinyl.getID());
+                ///////////////////////////////
+
+                String[][] data = VinylDataExchange.getFullDataTable();
+                vinyls.clear();
+                fillVinylList(data);
+
+                editVinylStage.close();
+            });
+
+            // Setze die Szene und zeige das Edit-Fenster an
+            Scene editVinylScene = new Scene(editVinylGrid, 400, 300);
+            editVinylScene.getStylesheets().add("file:" + Objects.requireNonNull(getClass().getResource("/com/example/vinylcollector/neumorphic.css")).getPath());
+            editVinylStage.setScene(editVinylScene);
+            editVinylStage.showAndWait();
         }
     }
 
@@ -433,7 +516,8 @@ public class VinylCollectionAppGUI extends Application {
             }
         }
     }
-    private void setupTableSelectionListener() {
+
+        private void setupTableSelectionListener() {
         tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 // Setze die Werte der ausgewählten Vinyl in die Textfelder
