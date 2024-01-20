@@ -12,7 +12,7 @@ Darko - Design und Umsetzung von graphischer Besnutzeroberfläche\
 Lorenz - Implementierung der Programmlogik (Datenaustausch zwischen DB und GUI), Verwaltung des Git Repository\
 Marcel - Einrichtung der Datenbank (Datenmodellierung und -verwaltung)
 
-2. Screenshot App
+2. Screenshot App\
 Falls irgendwas nicht funktioniert, können sie hier wenigstens einen Screenshot der ganzen App sehen:\
 <img width="905" alt="image" src="https://github.com/LorackDev/VinylCollector/assets/149715859/55101acb-deac-4fc3-8275-dc6aebedcfaf">
 
