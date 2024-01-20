@@ -57,8 +57,8 @@ public class VinylCollectionAppGUI extends Application {
         tableView = createTableView();
         albumCover = createAlbumCover();
         titleTextField = new TextField("Title");
-        artistTextField = new TextField("Artist");
-        yearTextField = new TextField("Year");
+        artistTextField = new TextField("Künstler");
+        yearTextField = new TextField("Erscheinungsjahr");
         genreTextField = new TextField("Genre");
         spotifyLinkTextField = new TextField("Spotify Link");
 
@@ -109,13 +109,13 @@ public class VinylCollectionAppGUI extends Application {
         TableColumn<Vinyl, String> idCol = new TableColumn<>("ID");
         idCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 
-        TableColumn<Vinyl, String> titleCol = new TableColumn<>("Title");
+        TableColumn<Vinyl, String> titleCol = new TableColumn<>("Titel");
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
 
-        TableColumn<Vinyl, String> artistCol = new TableColumn<>("Artist");
+        TableColumn<Vinyl, String> artistCol = new TableColumn<>("Künstler");
         artistCol.setCellValueFactory(new PropertyValueFactory<>("artist"));
 
-        TableColumn<Vinyl, Number> yearCol = new TableColumn<>("Year");
+        TableColumn<Vinyl, Number> yearCol = new TableColumn<>("Erscheinungsjahr");
         yearCol.setCellValueFactory(new PropertyValueFactory<>("year"));
 
         TableColumn<Vinyl, String> genreCol = new TableColumn<>("Genre");
@@ -179,14 +179,14 @@ public class VinylCollectionAppGUI extends Application {
         grid.add(titleTextField, 0, 0, 2, 1);
 
         artistTextField = new TextField();
-        artistTextField.setPromptText("Artist");
+        artistTextField.setPromptText("Künstler");
         artistTextField.getStyleClass().add("neumorphic-field");
         artistTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         artistTextField.setEditable(false);
         grid.add(artistTextField, 0, 1, 2, 1);
 
         yearTextField = new TextField();
-        yearTextField.setPromptText("Year");
+        yearTextField.setPromptText("Erscheinungsjahr");
         yearTextField.getStyleClass().add("neumorphic-field");
         yearTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         yearTextField.setEditable(false);
@@ -212,7 +212,7 @@ public class VinylCollectionAppGUI extends Application {
         //grid.add(albumCover, 0, 2);
 
         //Hinzufügen
-        Button addToCollectionButton = new Button("Add to Collection");
+        Button addToCollectionButton = new Button("Zur Sammlung hinzufügen");
         addToCollectionButton.getStyleClass().add("neumorphic-button");
         grid.add(addToCollectionButton, 0, 5);
         GridPane.setHalignment(addToCollectionButton, HPos.CENTER);
@@ -306,7 +306,7 @@ public class VinylCollectionAppGUI extends Application {
 
     private void openAddVinylWindow() {
         Stage addVinylStage = new Stage();
-        addVinylStage.setTitle("Add Vinyl to Collection");
+        addVinylStage.setTitle("Vinyl zur Sammlung hinzufügen");
         addVinylStage.initModality(Modality.APPLICATION_MODAL);
         addVinylStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
 
@@ -334,33 +334,48 @@ public class VinylCollectionAppGUI extends Application {
         tableRowConstraints.setVgrow(Priority.ALWAYS);
         addVinylGrid.getRowConstraints().set(4, tableRowConstraints);
 
-        TextField newTitleTextField = new TextField("Title");
+        TextField newTitleTextField = new TextField();
+        newTitleTextField.setPromptText("Titel");
+        newTitleTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         newTitleTextField.getStyleClass().add("neumorphic-field");
         addVinylGrid.add(newTitleTextField, 0, 0, 2, 1);
+        newTitleTextField.setFocusTraversable(false);
 
-        TextField newArtistTextField = new TextField("Artist");
+        TextField newArtistTextField = new TextField();
+        newArtistTextField.setPromptText("Künstler");
+        newArtistTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         newArtistTextField.getStyleClass().add("neumorphic-field");
         addVinylGrid.add(newArtistTextField, 0, 1, 2, 1);
+        newArtistTextField.setFocusTraversable(false);
 
-        TextField newYearTextField = new TextField("Year");
+        TextField newYearTextField = new TextField();
+        newYearTextField.setPromptText("Erscheinungsjahr");
+        newYearTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         newYearTextField.getStyleClass().add("neumorphic-field");
         addVinylGrid.add(newYearTextField, 0, 2, 2, 1);
+        newYearTextField.setFocusTraversable(false);
 
-        TextField newGenreTextField = new TextField("Genre");
+        TextField newGenreTextField = new TextField();
+        newGenreTextField.setPromptText("Genre");
+        newGenreTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         newGenreTextField.getStyleClass().add("neumorphic-field");
         addVinylGrid.add(newGenreTextField, 2, 0, 2, 1);
+        newGenreTextField.setFocusTraversable(false);
 
-        TextField newSpotifyLinkTextField = new TextField("Spotify Link");
+        TextField newSpotifyLinkTextField = new TextField();
+        newSpotifyLinkTextField.setPromptText("Spotify Link");
+        newSpotifyLinkTextField.setStyle("-fx-background-color: #f0f0f0; -fx-text-fill: black;");
         newSpotifyLinkTextField.getStyleClass().add("neumorphic-field");
         addVinylGrid.add(newSpotifyLinkTextField, 2, 1, 2, 1);
+        newSpotifyLinkTextField.setFocusTraversable(false);
 
-        Button cancelButton = new Button("          Cancel          ");
+        Button cancelButton = new Button("          Abbrechen          ");
         cancelButton.getStyleClass().add("neumorphic-button");
         addVinylGrid.add(cancelButton, 0, 4, 2, 1);
         GridPane.setHalignment(cancelButton, HPos.CENTER);
         cancelButton.setStyle("-fx-background-color: #FFC0CB;");
 
-        Button addButton = new Button("             Add             ");
+        Button addButton = new Button("             Hinzufügen             ");
         addButton.getStyleClass().add("neumorphic-button");
         addVinylGrid.add(addButton, 2, 4, 2, 1);
         GridPane.setHalignment(addButton, HPos.CENTER);
@@ -392,7 +407,9 @@ public class VinylCollectionAppGUI extends Application {
 
         addVinylStage.setScene(addVinylScene);
         addVinylStage.showAndWait();
+        addVinylStage.requestFocus();
     }
+
 
 
     private void showSuccessDialog() {
