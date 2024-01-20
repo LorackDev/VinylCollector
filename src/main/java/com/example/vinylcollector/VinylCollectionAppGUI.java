@@ -451,14 +451,14 @@ public class VinylCollectionAppGUI extends Application {
             editSpotifyLinkTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editSpotifyLinkTextField, 2, 1, 2, 1);
 
-            Button cancelEditButton = new Button("Abbrechen");
+            Button cancelEditButton = new Button("          Abbrechen          ");
             cancelEditButton.getStyleClass().add("neumorphic-button");
             editVinylGrid.add(cancelEditButton, 0, 4, 2, 1);
             GridPane.setHalignment(cancelEditButton, HPos.CENTER);
             cancelEditButton.setStyle("-fx-background-color: #FFC0CB;");
             cancelEditButton.setOnAction(event -> editVinylStage.close());
 
-            Button saveEditButton = new Button("Speichern");
+            Button saveEditButton = new Button("          Speichern          ");
             saveEditButton.getStyleClass().add("neumorphic-button");
             editVinylGrid.add(saveEditButton, 2, 4, 2, 1);
             GridPane.setHalignment(saveEditButton, HPos.CENTER);
