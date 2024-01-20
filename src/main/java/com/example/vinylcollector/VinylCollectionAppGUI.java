@@ -426,7 +426,8 @@ public class VinylCollectionAppGUI extends Application {
 
         if (selectedVinyl != null) {
             Stage editVinylStage = new Stage();
-            editVinylStage.setTitle("Edit Vinyl");
+            editVinylStage.setTitle("Vinyl bearbeiten");
+            editVinylStage.getIcons().add(new Image(getClass().getResourceAsStream("/com/example/vinylcollector/appicon_vinyl-disc.png")));
             editVinylStage.initModality(Modality.APPLICATION_MODAL);
 
             GridPane editVinylGrid = new GridPane();
@@ -457,22 +458,27 @@ public class VinylCollectionAppGUI extends Application {
             TextField editTitleTextField = new TextField(selectedVinyl.getTitle());
             editTitleTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editTitleTextField, 0, 0, 2, 1);
+            editTitleTextField.setFocusTraversable(false);
 
             TextField editArtistTextField = new TextField(selectedVinyl.getArtist());
             editArtistTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editArtistTextField, 0, 1, 2, 1);
+            editArtistTextField.setFocusTraversable(false);
 
             TextField editYearTextField = new TextField(selectedVinyl.getYear());
             editYearTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editYearTextField, 0, 2, 2, 1);
+            editYearTextField.setFocusTraversable(false);
 
             TextField editGenreTextField = new TextField(selectedVinyl.getGenre());
             editGenreTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editGenreTextField, 2, 0, 2, 1);
+            editGenreTextField.setFocusTraversable(false);
 
             TextField editSpotifyLinkTextField = new TextField(selectedVinyl.getSpotifyLink());
             editSpotifyLinkTextField.getStyleClass().add("neumorphic-field");
             editVinylGrid.add(editSpotifyLinkTextField, 2, 1, 2, 1);
+            editSpotifyLinkTextField.setFocusTraversable(false);
 
             Button cancelEditButton = new Button("          Abbrechen          ");
             cancelEditButton.getStyleClass().add("neumorphic-button");
@@ -510,6 +516,7 @@ public class VinylCollectionAppGUI extends Application {
             editVinylScene.getStylesheets().add("file:" + Objects.requireNonNull(getClass().getResource("/com/example/vinylcollector/neumorphic.css")).getPath());
             editVinylStage.setScene(editVinylScene);
             editVinylStage.showAndWait();
+            editVinylStage.requestFocus();
         }
     }
 
